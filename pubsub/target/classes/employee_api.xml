@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd" version="EE-3.5.1">
+    <apikit:config name="employee_api-config" raml="employee_api.raml" consoleEnabled="true" consolePath="console" doc:name="Router"/>
+    <apikit:mapping-exception-strategy name="employee_api-apiKitGlobalExceptionMapping" doc:name="Mapping Exception Strategy">
+        <apikit:mapping statusCode="404">
+            <apikit:exception value="org.mule.module.apikit.exception.NotFoundException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Resource not found&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="405">
+            <apikit:exception value="org.mule.module.apikit.exception.MethodNotAllowedException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Method not allowed&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="415">
+            <apikit:exception value="org.mule.module.apikit.exception.UnsupportedMediaTypeException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Unsupported media type&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="406">
+            <apikit:exception value="org.mule.module.apikit.exception.NotAcceptableException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Not acceptable&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="400">
+            <apikit:exception value="org.mule.module.apikit.exception.BadRequestException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Bad request&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+    </apikit:mapping-exception-strategy>
+    <flow name="employee_api-main" doc:name="employee_api-main">
+        <http:inbound-endpoint address="http://localhost:8083/pubSub" doc:name="HTTP" exchange-pattern="request-response"/>
+        <apikit:router config-ref="employee_api-config" doc:name="APIkit Router"/>
+        <exception-strategy ref="employee_api-apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
+    </flow>
+   <flow name="put:/employees:employee_api-config" doc:name="put:/employees:employee_api-config" tracking:enable-default-events="true">
+        <message-properties-transformer doc:name="Set JMS Header Properties">
+            <add-message-property key="employee_type" value="#[json:[0]/employee_type]"/>
+        </message-properties-transformer>
+        <logger message="#[app.name.toUpperCase()] | #[flow.name.toUpperCase()] | #[json:[0]/employee_type]" level="INFO" doc:name="Logger"/>
+        <jms:outbound-endpoint topic="${jms.topic}" connector-ref="Active_MQ" doc:name="JMS"/>
+    </flow>
+    <flow name="subscriber-all" doc:name="subscriber-all" tracking:enable-default-events="true" >
+        <jms:inbound-endpoint topic="${jms.topic}" connector-ref="Active_MQ" doc:name="JMS"/>
+        <logger message="#[app.name.toUpperCase()] | #[flow.name.toUpperCase()] | #[json:[0]/employee_type] | #[json:[0]/first_name] | #[json:[0]/last_name]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="subscriber-Office" doc:name="subscriber-Office" tracking:enable-default-events="true">
+        <jms:inbound-endpoint topic="${jms.topic}" connector-ref="Active_MQ" doc:name="JMS" >
+        	<jms:selector expression="employee_type = 'Office'"/>
+       	</jms:inbound-endpoint>
+        <logger message="#[app.name.toUpperCase()] | #[flow.name.toUpperCase()] | #[json:[0]/employee_type] | #[json:[0]/first_name] | #[json:[0]/last_name]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="subscriber-Remote" doc:name="subscriber-Remote" tracking:enable-default-events="true">
+        <jms:inbound-endpoint topic="${jms.topic}" connector-ref="Active_MQ" doc:name="JMS" >
+        	<jms:selector expression="employee_type = 'Remote'" />
+        </jms:inbound-endpoint>
+        <logger message="#[app.name.toUpperCase()] | #[flow.name.toUpperCase()] | #[json:[0]/employee_type] | #[json:[0]/first_name] | #[json:[0]/last_name]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="delete:/employee/{id}:employee_api-config" doc:name="delete:/employee/{id}:employee_api-config">
+        <set-payload value="#[NullPayload.getInstance()]" doc:name="Set Payload"/>
+    </flow>
+    <flow name="get:/employee/{id}:employee_api-config" doc:name="get:/employee/{id}:employee_api-config">
+        <set-payload value="[&#x9;&#xD;&#xA;  {&#x9;&#xD;&#xA;    &quot;job_title&quot;:&quot;Programmer&quot;,&#xD;&#xA;    &quot;email&quot;:&quot;daustin@cool-mule.com&quot;,&#xD;&#xA;    &quot;employee_type&quot;:&quot;Office&quot;,&#xD;&#xA;    &quot;status&quot;:&quot;Active&quot;,&#xD;&#xA;    &quot;start_date&quot;:&quot;2001-06-24&quot;,&#xD;&#xA;    &quot;last_name&quot;:&quot;Austin&quot;,&#xD;&#xA;    &quot;first_name&quot;:&quot;David&quot;,&#xD;&#xA;    &quot;employee_id&quot;:&quot;100&quot;,&#xD;&#xA;    &quot;department&quot;:&quot;IT&quot;&#xD;&#xA;  }&#xD;&#xA;]" doc:name="Set Payload"/>
+    </flow>
+    <flow name="get:/employees:employee_api-config" doc:name="get:/employees:employee_api-config">
+        <set-payload value="[&#x9;&#xD;&#xA;  {&#x9;&#xD;&#xA;    &quot;job_title&quot;:&quot;Programmer&quot;,&#xD;&#xA;    &quot;email&quot;:&quot;daustin@cool-mule.com&quot;,&#xD;&#xA;    &quot;employee_type&quot;:&quot;Office&quot;,&#xD;&#xA;    &quot;status&quot;:&quot;Active&quot;,&#xD;&#xA;    &quot;start_date&quot;:&quot;2001-06-24&quot;,&#xD;&#xA;    &quot;last_name&quot;:&quot;Austin&quot;,&#xD;&#xA;    &quot;first_name&quot;:&quot;David&quot;,&#xD;&#xA;    &quot;employee_id&quot;:&quot;100&quot;,&#xD;&#xA;    &quot;department&quot;:&quot;IT&quot;&#xD;&#xA;  }&#xD;&#xA;]" doc:name="Set Payload"/>
+    </flow>
+    <flow name="get:/employees/department/{department}:employee_api-config" doc:name="get:/employees/department/{department}:employee_api-config">
+        <set-payload value="{&#xD;&#xA;                &quot;description&quot;: &quot;Employees&quot;,&#xD;&#xA;                &quot;type&quot;: &quot;array&quot;,&#xD;&#xA;                &quot;items&quot;: {&#xD;&#xA;                  &quot;description&quot;: &quot;Employee record&quot;,&#xD;&#xA;                  &quot;type&quot;: &quot;object&quot;,&#xD;&#xA;                  &quot;properties&quot;: {&#xD;&#xA;                    &quot;job_title&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Job title, example, Manager&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;email&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Email address&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;employee_type&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Employee type - Remote or Office&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;status&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Status&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;start_date&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Start date&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;last_name&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Employee last name&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },&#xD;&#xA;                    &quot;first_name&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Employee first name&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },      &#xD;&#xA;                    &quot;employee_id&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Employee ID&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    },    &#xD;&#xA;                    &quot;department&quot;: {&#xD;&#xA;                      &quot;type&quot;: &quot;string&quot;,&#xD;&#xA;                      &quot;description&quot;: &quot;Department&quot;,&#xD;&#xA;                      &quot;required&quot;: true&#xD;&#xA;                    }                                                                                                                                         &#xD;&#xA;                  }&#xD;&#xA;                }&#xD;&#xA;              }" doc:name="Set Payload"/>
+    </flow>
+    <flow name="post:/employees:employee_api-config" doc:name="post:/employees:employee_api-config">
+        <set-payload value="#[NullPayload.getInstance()]" doc:name="Set Payload"/>
+    </flow>
+</mule>

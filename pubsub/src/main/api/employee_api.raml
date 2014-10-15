@@ -1,0 +1,83 @@
+#%RAML 0.8
+title: Employee API
+version: 1.0
+#baseUri: http://localhost:8082/api/{version}
+baseUri: http://mocksvc.mulesoft.com/mocks/61092c53-feac-4945-baa5-ed0ecc816348/api/{version}
+documentation: 
+  - title: Employee API
+    content: Employee Information Creation, Retrieval, Update and Deletion Services
+/employees:
+  displayName: Employees
+  post:
+    description: Create new employee record
+    body:
+      application/json:
+        schema: !include employee_schema.json
+        example: !include employee.json  
+      text/html: !!null       
+    responses:
+      201: !!null  
+  put:
+    description: Update employee 
+    body:
+      application/json:
+        schema: !include employee_schema.json
+        example: !include employee.json      
+    responses:
+      201: !!null    
+  get:
+    description: Returns all employees
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include employee_schema.json
+            example: !include employee.json
+  /department/{department}:
+    displayName: HRIS Employees By Department
+    uriParameters:
+      department:
+        description: |
+          Department - Executive, IT, Finance, Purchasing, Shipping, Sales, Administration, Marketing. Human Resources, Public Relations, Accounting
+        type: string
+        required: true
+        minLength: 2
+        maxLength: 50
+        example: Executive
+    get:
+      description: Retrieve employees for a specific department.
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include employee_schema.json
+              schema: !include employee.json
+        404:
+          description: |
+            Unable to find employees for this department
+/employee/{id}:
+  displayName: Employee by ID
+  uriParameters:
+    id:
+      description: |
+        Employee ID
+      type: string
+      required: true
+      minLength: 3
+      maxLength: 50
+      example: 100  
+  get:
+    description: Returns an employee
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include employee_schema.json
+            example: !include employee.json               
+      404:
+        description: |
+          Unable to find employee for this ID  
+  delete:
+    description: Delete employee 
+    responses:
+      201: !!null  

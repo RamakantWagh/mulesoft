@@ -1,0 +1,13 @@
+[	
+  {	
+    "job_title":"Programmer",
+    "email":"daustin@cool-mule.com",
+    "employee_type":"Office",
+    "status":"Active",
+    "start_date":"2001-06-24",
+    "last_name":"Austin",
+    "first_name":"David",
+    "employee_id":"100",
+    "department":"IT"
+  }
+]
