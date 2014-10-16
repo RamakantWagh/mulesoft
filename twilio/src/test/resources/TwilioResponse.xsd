@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TwilioResponse" type="TwilioResponseType"/>
+  <xs:complexType name="SMSMessageType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Sid"/>
+      <xs:element type="xs:string" name="DateCreated"/>
+      <xs:element type="xs:string" name="DateUpdated"/>
+      <xs:element type="xs:string" name="DateSent"/>
+      <xs:element type="xs:string" name="AccountSid"/>
+      <xs:element name="To">
+        <xs:simpleType>
+          <xs:restriction base="xs:long">
+            <xs:enumeration value="+14044476386"/>
+            <xs:enumeration value="+16782702086"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="From">
+        <xs:simpleType>
+          <xs:restriction base="xs:long">
+            <xs:enumeration value="+16782702086"/>
+            <xs:enumeration value="+14044476386"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="Body"/>
+      <xs:element name="Status">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="delivered"/>
+            <xs:enumeration value="received"/>
+            <xs:enumeration value="sent"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Direction">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="outbound-reply"/>
+            <xs:enumeration value="inbound"/>
+            <xs:enumeration value="outbound-api"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:float" name="Price"/>
+      <xs:element type="xs:string" name="PriceUnit"/>
+      <xs:element type="xs:date" name="ApiVersion"/>
+      <xs:element type="xs:string" name="Uri"/>
+      <xs:element type="xs:byte" name="NumSegments"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TwilioResponseType">
+    <xs:sequence>
+      <xs:element type="SMSMessagesType" name="SMSMessages"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SMSMessagesType">
+    <xs:sequence>
+      <xs:element type="SMSMessageType" name="SMSMessage" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:byte" name="end"/>
+    <xs:attribute type="xs:string" name="firstpageuri"/>
+    <xs:attribute type="xs:string" name="lastpageuri"/>
+    <xs:attribute type="xs:string" name="nextpageuri"/>
+    <xs:attribute type="xs:byte" name="numpages"/>
+    <xs:attribute type="xs:byte" name="page"/>
+    <xs:attribute type="xs:byte" name="pagesize"/>
+    <xs:attribute type="xs:string" name="previouspageuri"/>
+    <xs:attribute type="xs:byte" name="start"/>
+    <xs:attribute type="xs:byte" name="total"/>
+    <xs:attribute type="xs:string" name="uri"/>
+  </xs:complexType>
+</xs:schema>

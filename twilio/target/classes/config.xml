@@ -23,5 +23,4 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd">
 
 	<context:property-placeholder location="mule-app.${mule.env}.properties" />
-    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://${jms.host}:${jms.port}" validateConnections="true" doc:name="Active MQ"/>
 </mule>

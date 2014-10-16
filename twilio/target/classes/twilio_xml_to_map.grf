@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph __version="3.5.0" author="broeder" created="Thu Oct 16 10:44:04 EDT 2014" description="twilio XML To Map" guiVersion="3.4.4.P" id="1413475494073" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Oct 16 10:44:04 EDT 2014" modifiedBy="broeder" name="twilio_XML_To_Map" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="4b7f4c60-9939-4938-a01a-48a5d58d2674" _parent_id="__parent_id" _type="Input" id="fc8f7d7a-415e-49c7-8638-2111eaefddb9">
+<Record fieldDelimiter="," name="SMSMessage" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Sid" containerType="SINGLE" label="Sid" name="Sid" type="string"/>
+<Field __index="1" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateCreated" containerType="SINGLE" label="DateCreated" name="DateCreated" type="string"/>
+<Field __index="2" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateUpdated" containerType="SINGLE" label="DateUpdated" name="DateUpdated" type="string"/>
+<Field __index="3" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateSent" containerType="SINGLE" label="DateSent" name="DateSent" type="string"/>
+<Field __index="4" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/AccountSid" containerType="SINGLE" label="AccountSid" name="AccountSid" type="string"/>
+<Field __index="5" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/To" containerType="SINGLE" label="To" name="To" type="long"/>
+<Field __index="6" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/From" containerType="SINGLE" label="From" name="From" type="long"/>
+<Field __index="7" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Body" containerType="SINGLE" label="Body" name="Body" type="string"/>
+<Field __index="8" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Status" containerType="SINGLE" label="Status" name="Status" type="string"/>
+<Field __index="9" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Direction" containerType="SINGLE" label="Direction" name="Direction" type="string"/>
+<Field __index="10" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Price" containerType="SINGLE" label="Price" name="Price" type="number"/>
+<Field __index="11" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/PriceUnit" containerType="SINGLE" label="PriceUnit" name="PriceUnit" type="string"/>
+<Field __index="12" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/ApiVersion" containerType="SINGLE" label="ApiVersion" name="ApiVersion" type="date"/>
+<Field __index="13" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Uri" containerType="SINGLE" label="Uri" name="Uri" type="string"/>
+<Field __index="14" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/NumSegments" containerType="SINGLE" label="NumSegments" name="NumSegments" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="11" __referenceCounter="1" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="727ae548-754b-4e86-a08a-f22eca1a175e" _parent_id="__parent_id" _type="Output" id="4efc74f8-2243-43ab-88c3-9bccf1c5b24a">
+<Record fieldDelimiter="," name="SMSMessage" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="15" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/AccountSid" containerType="SINGLE" label="AccountSid" name="AccountSid" type="string"/>
+<Field __index="23" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/ApiVersion" containerType="SINGLE" label="ApiVersion" name="ApiVersion" type="date"/>
+<Field __index="18" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Body" containerType="SINGLE" label="Body" name="Body" type="string"/>
+<Field __index="12" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateCreated" containerType="SINGLE" label="DateCreated" name="DateCreated" type="string"/>
+<Field __index="14" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateSent" containerType="SINGLE" label="DateSent" name="DateSent" type="string"/>
+<Field __index="13" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateUpdated" containerType="SINGLE" label="DateUpdated" name="DateUpdated" type="string"/>
+<Field __index="20" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Direction" containerType="SINGLE" label="Direction" name="Direction" type="string"/>
+<Field __index="17" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/From" containerType="SINGLE" label="From" name="From" type="long"/>
+<Field __index="25" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/NumSegments" containerType="SINGLE" label="NumSegments" name="NumSegments" type="integer"/>
+<Field __index="21" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Price" containerType="SINGLE" label="Price" name="Price" type="number"/>
+<Field __index="22" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/PriceUnit" containerType="SINGLE" label="PriceUnit" name="PriceUnit" type="string"/>
+<Field __index="11" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Sid" containerType="SINGLE" label="Sid" name="Sid" type="string"/>
+<Field __index="19" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Status" containerType="SINGLE" label="Status" name="Status" type="string"/>
+<Field __index="16" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/To" containerType="SINGLE" label="To" name="To" type="long"/>
+<Field __index="24" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Uri" containerType="SINGLE" label="Uri" name="Uri" type="string"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __schemaType="TwilioResponseType" __sourcePath="{}/TwilioResponse" _dataStructure="OBJECT" _id="__id" _type="Input" id="4b7f4c60-9939-4938-a01a-48a5d58d2674">
+<Record fieldDelimiter="," name="TwilioResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="15" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@end" containerType="SINGLE" label="end" name="end" type="integer"/>
+<Field __index="16" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@firstpageuri" containerType="SINGLE" label="firstpageuri" name="firstpageuri" type="string"/>
+<Field __index="17" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@lastpageuri" containerType="SINGLE" label="lastpageuri" name="lastpageuri" type="string"/>
+<Field __index="18" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@nextpageuri" containerType="SINGLE" label="nextpageuri" name="nextpageuri" type="string"/>
+<Field __index="19" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@numpages" containerType="SINGLE" label="numpages" name="numpages" type="integer"/>
+<Field __index="20" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@page" containerType="SINGLE" label="page" name="page" type="integer"/>
+<Field __index="21" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@pagesize" containerType="SINGLE" label="pagesize" name="pagesize" type="integer"/>
+<Field __index="22" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@previouspageuri" containerType="SINGLE" label="previouspageuri" name="previouspageuri" type="string"/>
+<Field __index="23" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@start" containerType="SINGLE" label="start" name="start" type="integer"/>
+<Field __index="24" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@total" containerType="SINGLE" label="total" name="total" type="integer"/>
+<Field __index="25" __schemaType="SMSMessagesType" __sourcePath="{}/TwilioResponse/SMSMessages/@uri" containerType="SINGLE" label="uri" name="uri" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/TwilioResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="727ae548-754b-4e86-a08a-f22eca1a175e">
+<Record fieldDelimiter="," name="TwilioResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/TwilioResponse/SMSMessages/end" containerType="SINGLE" label="end" name="end" type="integer"/>
+<Field __index="1" __sourcePath="{}/TwilioResponse/SMSMessages/firstpageuri" containerType="SINGLE" label="firstpageuri" name="firstpageuri" type="string"/>
+<Field __index="2" __sourcePath="{}/TwilioResponse/SMSMessages/lastpageuri" containerType="SINGLE" label="lastpageuri" name="lastpageuri" type="string"/>
+<Field __index="3" __sourcePath="{}/TwilioResponse/SMSMessages/nextpageuri" containerType="SINGLE" label="nextpageuri" name="nextpageuri" type="string"/>
+<Field __index="4" __sourcePath="{}/TwilioResponse/SMSMessages/numpages" containerType="SINGLE" label="numpages" name="numpages" type="integer"/>
+<Field __index="5" __sourcePath="{}/TwilioResponse/SMSMessages/page" containerType="SINGLE" label="page" name="page" type="integer"/>
+<Field __index="6" __sourcePath="{}/TwilioResponse/SMSMessages/pagesize" containerType="SINGLE" label="pagesize" name="pagesize" type="integer"/>
+<Field __index="7" __sourcePath="{}/TwilioResponse/SMSMessages/previouspageuri" containerType="SINGLE" label="previouspageuri" name="previouspageuri" type="string"/>
+<Field __index="8" __sourcePath="{}/TwilioResponse/SMSMessages/start" containerType="SINGLE" label="start" name="start" type="integer"/>
+<Field __index="9" __sourcePath="{}/TwilioResponse/SMSMessages/total" containerType="SINGLE" label="total" name="total" type="integer"/>
+<Field __index="10" __sourcePath="{}/TwilioResponse/SMSMessages/uri" containerType="SINGLE" label="uri" name="uri" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'SMSMessage' -&gt; 'SMSMessage'" guiX="460" guiY="120" id="FOREACH_SMSMESSAGE_SMSMESSAGE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.Sid = input.Sid;
+output.DateCreated = input.DateCreated;
+output.DateUpdated = input.DateUpdated;
+output.DateSent = input.DateSent;
+output.AccountSid = input.AccountSid;
+output.To = input.To;
+output.From = input.From;
+output.Body = input.Body;
+output.Status = input.Status;
+output.Direction = input.Direction;
+output.Price = input.Price;
+output.PriceUnit = input.PriceUnit;
+output.ApiVersion = input.ApiVersion;
+output.Uri = input.Uri;
+output.NumSegments = input.NumSegments;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'TwilioResponse' -&gt; 'TwilioResponse'" guiX="460" guiY="20" id="FOREACH_TWILIO_RESPONSE_TWILIO_RESPONSE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.end = input.end;
+output.firstpageuri = input.firstpageuri;
+output.lastpageuri = input.lastpageuri;
+output.nextpageuri = input.nextpageuri;
+output.numpages = input.numpages;
+output.page = input.page;
+output.pagesize = input.pagesize;
+output.previouspageuri = input.previouspageuri;
+output.start = input.start;
+output.total = input.total;
+output.uri = input.uri;
+]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<TwilioResponse xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <SMSMessages>
+    <end>$0.end</end>
+    <firstpageuri>$0.firstpageuri</firstpageuri>
+    <lastpageuri>$0.lastpageuri</lastpageuri>
+    <nextpageuri>$0.nextpageuri</nextpageuri>
+    <numpages>$0.numpages</numpages>
+    <page>$0.page</page>
+    <pagesize>$0.pagesize</pagesize>
+    <previouspageuri>$0.previouspageuri</previouspageuri>
+    <start>$0.start</start>
+    <total>$0.total</total>
+    <uri>$0.uri</uri>
+    <clover:collection clover:name="SMSMessage">
+      <item clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+        <Sid>$1.Sid</Sid>
+        <DateCreated>$1.DateCreated</DateCreated>
+        <DateUpdated>$1.DateUpdated</DateUpdated>
+        <DateSent>$1.DateSent</DateSent>
+        <AccountSid>$1.AccountSid</AccountSid>
+        <To>$1.To</To>
+        <From>$1.From</From>
+        <Body>$1.Body</Body>
+        <Status>$1.Status</Status>
+        <Direction>$1.Direction</Direction>
+        <Price>$1.Price</Price>
+        <PriceUnit>$1.PriceUnit</PriceUnit>
+        <ApiVersion>$1.ApiVersion</ApiVersion>
+        <Uri>$1.Uri</Uri>
+        <NumSegments>$1.NumSegments</NumSegments>
+      </item>
+    </clover:collection>
+  </SMSMessages>
+</TwilioResponse>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/test/resources/TwilioResponse.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/TwilioResponse">
+  <Mapping cloverField="end" trim="true" xpath="SMSMessages/@end"/>
+  <Mapping cloverField="firstpageuri" trim="true" xpath="SMSMessages/@firstpageuri"/>
+  <Mapping cloverField="lastpageuri" trim="true" xpath="SMSMessages/@lastpageuri"/>
+  <Mapping cloverField="nextpageuri" trim="true" xpath="SMSMessages/@nextpageuri"/>
+  <Mapping cloverField="numpages" trim="true" xpath="SMSMessages/@numpages"/>
+  <Mapping cloverField="page" trim="true" xpath="SMSMessages/@page"/>
+  <Mapping cloverField="pagesize" trim="true" xpath="SMSMessages/@pagesize"/>
+  <Mapping cloverField="previouspageuri" trim="true" xpath="SMSMessages/@previouspageuri"/>
+  <Mapping cloverField="start" trim="true" xpath="SMSMessages/@start"/>
+  <Mapping cloverField="total" trim="true" xpath="SMSMessages/@total"/>
+  <Mapping cloverField="uri" trim="true" xpath="SMSMessages/@uri"/>
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="SMSMessages/SMSMessage">
+    <Mapping cloverField="Sid" trim="true" xpath="Sid"/>
+    <Mapping cloverField="DateCreated" trim="true" xpath="DateCreated"/>
+    <Mapping cloverField="DateUpdated" trim="true" xpath="DateUpdated"/>
+    <Mapping cloverField="DateSent" trim="true" xpath="DateSent"/>
+    <Mapping cloverField="AccountSid" trim="true" xpath="AccountSid"/>
+    <Mapping cloverField="To" trim="true" xpath="To"/>
+    <Mapping cloverField="From" trim="true" xpath="From"/>
+    <Mapping cloverField="Body" trim="true" xpath="Body"/>
+    <Mapping cloverField="Status" trim="true" xpath="Status"/>
+    <Mapping cloverField="Direction" trim="true" xpath="Direction"/>
+    <Mapping cloverField="Price" trim="true" xpath="Price"/>
+    <Mapping cloverField="PriceUnit" trim="true" xpath="PriceUnit"/>
+    <Mapping cloverField="ApiVersion" trim="true" xpath="ApiVersion"/>
+    <Mapping cloverField="Uri" trim="true" xpath="Uri"/>
+    <Mapping cloverField="NumSegments" trim="true" xpath="NumSegments"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[TwilioResponse]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_SMSMESSAGE_SMSMESSAGE:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="4efc74f8-2243-43ab-88c3-9bccf1c5b24a" outPort="Port 0 (out)" toNode="MAP_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_TWILIO_RESPONSE_TWILIO_RESPONSE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="727ae548-754b-4e86-a08a-f22eca1a175e" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="4b7f4c60-9939-4938-a01a-48a5d58d2674" outPort="Port 0 (out)" toNode="FOREACH_TWILIO_RESPONSE_TWILIO_RESPONSE:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="fc8f7d7a-415e-49c7-8638-2111eaefddb9" outPort="Port 1 (out)" toNode="FOREACH_SMSMESSAGE_SMSMESSAGE:0"/>
+</Phase>
+</Graph>

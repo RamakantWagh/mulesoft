@@ -1,0 +1,23 @@
+#%RAML 0.8
+title: twilio
+version: 1.0
+/sendText:
+  displayName: resourceName
+  get:
+    queryParameters:
+      phoneNumber:
+        description: phone number to send text to
+        type: string
+        example: 212-111-2345
+      textMessage:
+        description: message to send
+        type: string
+        example: Hello World
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "message":"text sent"
+              }
