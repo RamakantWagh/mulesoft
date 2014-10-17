@@ -6,11 +6,11 @@ version: 1.0
   get:
     queryParameters:
       phoneNumber:
-        description: phone number to send text to
+        description: This phone number MUST be authorized on the twilio site.  You can't just enter any number!
         type: string
         example: 212-111-2345
       textMessage:
-        description: message to send
+        description: The message can be anything you want.
         type: string
         example: Hello World
     responses:

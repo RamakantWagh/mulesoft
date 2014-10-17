@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:twilio="http://www.mulesoft.org/schema/mule/twilio" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:twilio="http://www.mulesoft.org/schema/mule/twilio" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/current/mule-twilio.xsd
 http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd" version="EE-3.5.0">
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd" version="EE-3.5.0">
     <apikit:config name="twilio-api-config" raml="twilio-api.raml" consoleEnabled="true" consolePath="console" doc:name="Router"/>
     <apikit:mapping-exception-strategy name="twilio-api-apiKitGlobalExceptionMapping" doc:name="Mapping Exception Strategy">
         <apikit:mapping statusCode="404">
@@ -39,31 +40,35 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
     	<twilio:http-callback-config/>
     </twilio:config>
     <data-mapper:config name="twilio_XML_To_Map" transformationGraphPath="twilio_xml_to_map.grf" doc:name="twilio_XML_To_Map"/>
-    <flow name="twilio-api-main" doc:name="twilio-api-main">
+    <flow name="twilio-api-main" doc:name="twilio-api-main" tracking:enable-default-events="true">
         <http:inbound-endpoint address="http://localhost:8081/api" doc:name="HTTP"/>
         <apikit:router config-ref="twilio-api-config" doc:name="APIkit Router"/>
         <exception-strategy ref="twilio-api-apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
     </flow>
-    <flow name="get:/sendText:twilio-api-config" doc:name="get:/sendText:twilio-api-config">
+    <flow name="get:/sendText:twilio-api-config" doc:name="get:/sendText:twilio-api-config" tracking:enable-default-events="true">
         <http:body-to-parameter-map-transformer doc:name="Body to Parameter Map"/>
         <twilio:send-sms-message config-ref="Twilio"  doc:name="send text" body="#[payload.textMessage]" from="${twilio.phoneNumber}" to="#[payload.phoneNumber]" />
         <logger message="#[app.name] | #[flow.name] | Sent a " level="INFO" doc:name="Logger"/>
     </flow>
-    <flow name="twilio-apiFlow1" doc:name="twilio-apiFlow1">
+    <flow name="getMessagesSentToTwilio" doc:name="getMessagesSentToTwilio" processingStrategy="synchronous" tracking:enable-default-events="true">
         <poll doc:name="Poll">
             <fixed-frequency-scheduler frequency="30" timeUnit="SECONDS"/>
+            <watermark variable="timestamp" default-expression="#[server.dateTime.withTimeZone('GMT').format(&quot;YYYY-MM-dd'T'HH:mm:ssZ&quot;)]" update-expression="#[server.dateTime.withTimeZone('GMT').format(&quot;YYYY-MM-dd'T'HH:mm:ssZ&quot;)]"/>
             <twilio:get-all-sms-messages config-ref="Twilio" doc:name="Twilio"/>
         </poll>
         <data-mapper:transform config-ref="twilio_XML_To_Map" doc:name="twilio XML To Map"/>
+        <logger message="#[app.name] | #[flow.name] | #[flowVars.timestamp] BATCH STARTING" level="INFO" doc:name="Logger"/>
         <foreach collection="#[payload.SMSMessages.SMSMessage]" doc:name="For Each" counterVariableName="messageCounter" rootMessageVariableName="TwilioResponse">
-            <logger message="#[app.name] | #[flow.name] | Processing a message #[payload.From] to #[payload.To].  Messaage=#[payload.Body]" level="INFO" doc:name="Logger"/>
+            <set-variable variableName="dateSent" value="#[new org.mule.el.datetime.DateTime(payload.DateSent, 'EEE, dd MMM yyyy HH:mm:ss zzzz').format(&quot;YYYY-MM-dd'T'HH:mm:ssZ&quot;);]" doc:name="Variable"/>
             <choice doc:name="Choice">
-                <when expression="#[payload.Body = &quot;yo&quot;]">
-                    <twilio:send-sms-message config-ref="Twilio" body="yo to you!" from="${twilio.phoneNumber}" to="#[payload.To]" doc:name="send response message"/>
+                <when expression="#[flowVars.timestamp &lt; flowVars.dateSent]">
+                    <twilio:send-sms-message config-ref="Twilio" body="You sent #[payload.Body]" from="${twilio.phoneNumber}" to="#[payload.To]" doc:name="send response message"/>
                     <logger message="#[app.name] | #[flow.name] | Received a Yo message" level="INFO" doc:name="Logger"/>
                 </when>
                 <otherwise>
-                    <logger level="INFO" doc:name="Logger" message="#[app.name] | #[flow.name] | Not a Yo message"/>
+                    <scripting:component doc:name="Groovy">
+                        <scripting:script engine="Groovy"><![CDATA[return []]]></scripting:script>
+                    </scripting:component>
                 </otherwise>
             </choice>
         </foreach>

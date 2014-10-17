@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Graph __version="3.5.0" author="broeder" created="Thu Oct 16 10:44:04 EDT 2014" description="twilio XML To Map" guiVersion="3.4.4.P" id="1413475494073" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Oct 16 10:44:04 EDT 2014" modifiedBy="broeder" name="twilio_XML_To_Map" revision="1.0" showComponentDetails="false">
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="broeder" created="Thu Oct 16 10:44:04 EDT 2014" description="twilio XML To Map" guiVersion="3.4.4.P" id="1413475494073" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Oct 16 10:44:04 EDT 2014" modifiedBy="broeder" name="twilio_XML_To_Map" revision="1.0" showComponentDetails="false">
 <Global>
 <Metadata __index="0" __referenceCounter="1" __schemaType="SMSMessageType" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="4b7f4c60-9939-4938-a01a-48a5d58d2674" _parent_id="__parent_id" _type="Input" id="fc8f7d7a-415e-49c7-8638-2111eaefddb9">
 <Record fieldDelimiter="," name="SMSMessage" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
@@ -30,7 +29,7 @@
 <Field __index="23" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/ApiVersion" containerType="SINGLE" label="ApiVersion" name="ApiVersion" type="date"/>
 <Field __index="18" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Body" containerType="SINGLE" label="Body" name="Body" type="string"/>
 <Field __index="12" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateCreated" containerType="SINGLE" label="DateCreated" name="DateCreated" type="string"/>
-<Field __index="14" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateSent" containerType="SINGLE" label="DateSent" name="DateSent" type="string"/>
+<Field __cdata="false" __index="14" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateSent" containerType="SINGLE" label="DateSent" name="DateSent" type="string"/>
 <Field __index="13" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/DateUpdated" containerType="SINGLE" label="DateUpdated" name="DateUpdated" type="string"/>
 <Field __index="20" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/Direction" containerType="SINGLE" label="Direction" name="Direction" type="string"/>
 <Field __index="17" __sourcePath="{}/TwilioResponse/SMSMessages/SMSMessage/From" containerType="SINGLE" label="From" name="From" type="long"/>
